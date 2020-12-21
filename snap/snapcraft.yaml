@@ -1,0 +1,76 @@
+name: cncmaps-renderer
+title: CNC Maps Renderer (Wine)
+summary: cncmaps-renderer is a map renderer.
+description: |
+ cncmaps-renderer provides a tool to render battle maps of the most popular Westwood RTS games Red Alert 2 and Tiberian Sun, including their expansions Yuri's Revenge and Firestorm.
+adopt-info: cncmaps-renderer
+
+confinement: strict
+grade: stable
+architectures:
+  - build-on: amd64
+base: core18
+
+plugs:
+  wine-runtime:
+    interface: content
+    target: $SNAP/wine-runtime
+    default-provider: wine-platform-runtime
+  wine-5-stable:
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-5-stable
+
+environment:
+  WINEDLLOVERRIDES: "mscoree,mshtml="         # Prevent pop-ups about Wine Mono and Wine Gecko
+  WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+  WINEARCH: "win32"
+  INSTALL_URL: "https://cdn.discordapp.com/attachments/780794442171809822/790599840525582386/CNCMaps_release_v2.4.0.exe"
+  INSTALL_FLAGS: "/S"
+
+apps:
+  cncmaps-renderer:
+    extensions: [ gnome-3-28 ]
+    command: bin/sommelier run-exe
+    environment:
+      RUN_EXE: "c:/Program Files/CNCMaps/CNCMaps.Renderer.GUI.exe"
+    plugs: 
+      - opengl
+      - home
+      - network
+      - removable-media
+
+  # The wine command can be used to run applications inside the wine
+  # environment that this snap uses.
+  #
+  # For example, users can configure the wine environment of this snap
+  # by running `myapp.wine winecfg`.
+  wine:
+    extensions: [ gnome-3-28 ]
+    command: bin/sommelier
+    plugs:
+      - home
+      - network
+
+  # The winetricks command can be used to run winetricks inside the wine
+  # environment that this snap uses.
+  winetricks:
+    extensions: [ gnome-3-28 ]
+    command: bin/sommelier winetricks
+    plugs:
+      - network
+
+parts:
+  cncmaps-renderer:
+    plugin: nil
+    override-build: |
+      snapcraftctl build
+      set -ex
+      snapcraftctl set-version "v2.4.0"
+
+  # The sommelier script helps you snap Windows applications using Wine. It 
+  # initializes and configures Wine and installs the Windows application.
+  sommelier:
+    plugin: make
+    source: https://github.com/snapcrafters/sommelier-core.git
+    source-branch: "1.0"

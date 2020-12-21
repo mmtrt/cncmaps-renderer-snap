@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=CNC Maps Renderer
+Comment=
+Exec=cncmaps-renderer
+Icon=${SNAP}/meta/gui/cncmaps-renderer.png
+Categories=Utility
+Terminal=false
+StartupNotify=true
+StartupWMClass=CNCMaps.Renderer.GUI.exe
+Keywords=editor,utilities
