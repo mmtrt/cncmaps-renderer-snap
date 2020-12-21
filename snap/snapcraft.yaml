@@ -22,7 +22,7 @@ plugs:
     default-provider: wine-platform-5-stable
 
 environment:
-  WINEDLLOVERRIDES: "mscoree,mshtml="         # Prevent pop-ups about Wine Mono and Wine Gecko
+  WINEDLLOVERRIDES: "mshtml="         # Prevent pop-ups about Wine Gecko
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
   WINEARCH: "win32"
   INSTALL_URL: "https://cdn.discordapp.com/attachments/780794442171809822/790599840525582386/CNCMaps_release_v2.4.0.exe"
