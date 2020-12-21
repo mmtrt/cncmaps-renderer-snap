@@ -1,0 +1,1 @@
+cncmaps-renderer-snap
