@@ -77,7 +77,7 @@ parts:
   sommelier:
     plugin: make
     source: https://github.com/mmtrt/sommelier-core.git
-    source-branch: "tmp"
+    source-branch: "tmp-test"
 
   # This reverts changes from https://github.com/snapcore/snapcraft/pull/3586
   fix-fontconfig:
