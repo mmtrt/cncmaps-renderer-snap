@@ -38,7 +38,7 @@ apps:
   cncmaps-renderer:
     extensions: [ gnome-3-28 ]
     command: bin/sommelier run-exe
-    command-chain: snap/command-chain/wine-launch
+    command-chain: [snap/command-chain/wine-launch]
     plugs:
       - opengl
       - home
