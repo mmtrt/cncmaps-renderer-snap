@@ -78,6 +78,8 @@ parts:
     plugin: make
     source: https://github.com/mmtrt/sommelier-core.git
     source-branch: "tmp-test"
+    override-prime: |
+      grep -Po '  - snap/command-chain/.*' $SNAPCRAFT_PRIME/meta/snap.yaml | sed -i '/desktop-launch/a\   \ - snap/command-chain/wine-launch' $SNAPCRAFT_PRIME/meta/snap.yaml
 
   # This reverts changes from https://github.com/snapcore/snapcraft/pull/3586
   fix-fontconfig:
