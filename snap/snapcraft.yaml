@@ -9,18 +9,18 @@ confinement: strict
 grade: stable
 architectures:
   - build-on: amd64
-base: core18
+base: core20
 compression: lzo
 
 plugs:
-  wine-runtime:
+  wine-runtime-c20:
     interface: content
     target: $SNAP/wine-runtime
-    default-provider: wine-platform-runtime
-  wine-6-stable:
+    default-provider: wine-platform-runtime-core20
+  wine-7-stable:
     interface: content
     target: $SNAP/wine-platform
-    default-provider: wine-platform-6-stable
+    default-provider: wine-platform-7-stable-core20
 
 environment:
   WINEDLLOVERRIDES: "mshtml="         # Prevent pop-ups about Wine Gecko
@@ -36,9 +36,9 @@ environment:
 
 apps:
   cncmaps-renderer:
-    extensions: [ gnome-3-28 ]
+    extensions: [ gnome-3-38 ]
     command: bin/sommelier run-exe
-    command-chain: [ snap/command-chain/wine-launch ]
+    #command-chain: [ snap/command-chain/wine-launch ]
     plugs:
       - opengl
       - home
@@ -51,9 +51,9 @@ apps:
   # For example, users can configure the wine environment of this snap
   # by running `myapp.wine winecfg`.
   wine:
-    extensions: [ gnome-3-28 ]
+    extensions: [ gnome-3-38 ]
     command: bin/sommelier
-    command-chain: [ snap/command-chain/wine-launch ]
+    #command-chain: [ snap/command-chain/wine-launch ]
     plugs:
       - home
       - network
@@ -61,9 +61,9 @@ apps:
   # The winetricks command can be used to run winetricks inside the wine
   # environment that this snap uses.
   winetricks:
-    extensions: [ gnome-3-28 ]
+    extensions: [ gnome-3-38 ]
     command: bin/sommelier winetricks
-    command-chain: [ snap/command-chain/wine-launch ]
+    #command-chain: [ snap/command-chain/wine-launch ]
     plugs:
       - network
 
@@ -80,11 +80,11 @@ parts:
   sommelier:
     plugin: make
     source: https://github.com/mmtrt/sommelier-core.git
-    source-branch: "tmp-test"
+    source-branch: "tmp-core20"
 
   # This reverts changes from https://github.com/snapcore/snapcraft/pull/3586
   fix-fontconfig:
     plugin: nil
-    after: [gnome-3-28-extension]
+    after: [gnome-3-38-extension]
     override-prime: |
       sed -i '/snap-package/,+1d' $SNAPCRAFT_PRIME/snap/command-chain/desktop-launch
