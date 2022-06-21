@@ -27,7 +27,6 @@ environment:
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
   WINEARCH: "win32"
   INSTALL_URL: "https://cdn.discordapp.com/attachments/780794442171809822/790599840525582386/CNCMaps_release_v2.4.0.exe"
-  INSTALL_FLAGS: "/S"
   NO_AT_BRIDGE: "1" # Fix yad error Failed to connect to socket /tmp/dbus-xxx: No such file or directory
   DISABLE_WAYLAND: "1" # Fix gtk decoration under wayland session
   SOMMELIER_INSTALL_MONO: "1" # Uses wine-mono auto download from sommelier
